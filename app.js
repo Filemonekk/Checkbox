@@ -4,9 +4,16 @@ const ValidatonMessage = (props) => {
         <p>{txt}</p>
     )
 }
-//const PositiveMessage = () => <p>Możesz obejrzeć film. Zapraszamy!</p>;
-//const NegativeMessage = () => <p>Nie możesz obejrzeć tego filmu jeśli masz mniej niż 16 lat!</p>;
 
+const OrderForm = (props) =>
+    (
+        <form onSubmit={props.submit}>
+            <input type="checkbox" id="age" onChange={props.change} checked={props.isConfirmed} />
+            <label htmlFor="age">Mam co najmniej 16 lata</label>
+            <br />
+            <button type="submit">Kup bilet</button>
+        </form>
+    )
 class TicketShop extends React.Component {
 
   state = {
@@ -42,14 +49,12 @@ class TicketShop extends React.Component {
     const {isConfirmed} = this.state
     return (
       <>
-        <h1>Kup bilet na horror roku!</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <input type="checkbox" id="age" onChange={this.handleCheckboxChange} checked={isConfirmed} />
-          <label htmlFor="age">Mam co najmniej 16 lata</label>
-          <br />
-          <button type="submit">Kup bilet</button>
-        </form>
-        {this.displayMessage()}
+            <h1>Kup bilet na horror roku!</h1>
+            <OrderForm
+                change={this.handleCheckboxChange}
+                submit={this.handleFormSubmit}
+                checked={isConfirmed} />
+            {this.displayMessage()}
       </>
     )
   }
